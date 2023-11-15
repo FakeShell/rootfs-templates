@@ -2,12 +2,15 @@
 {{- $apilevel := or .apilevel "28" -}}
 {{- $suite := "trixie" -}}
 {{- $use_internal_repository := or .use_internal_repository "no" -}}
+{{- $product := or .product "generic_debug" -}}
 
 {{- $username := or .username "droidian" -}}
 {{- $password := or .password "1234" -}}
 {{- $hostname := or .hostname "droidian" -}}
 
 architecture: {{ $architecture }}
+product: {{ $product }}
+
 actions:
 
   - action: recipe
@@ -24,6 +27,22 @@ actions:
     packages:
       - adaptation-hybris-api{{ $apilevel }}
 
+{{ if eq $product "generic_debug" }}
+  - action: run
+    description: Set up android base
+    chroot: true
+    script: scripts/setup-gsi-dbg.sh
+
+  - action: run
+    description: Set up default user
+    chroot: true
+    script: scripts/setup-user.sh {{ $username }} {{ $password }}
+
+  - action: run
+    description: Set up system
+    chroot: true
+    script: scripts/setup-system-dbg.sh {{ $hostname }}
+{{else}}
   - action: run
     description: Set up android base
     chroot: true
@@ -38,6 +57,7 @@ actions:
     description: Set up system
     chroot: true
     script: scripts/setup-system.sh {{ $hostname }}
+{{end}}
 
 {{ if eq $architecture "armhf" }}
   - action: run

@@ -7,8 +7,10 @@
 {{- $edition := or .edition "phosh" -}}
 {{- $variant := or .variant "phone" -}}
 {{- $use_internal_repository := or .use_internal_repository "no" -}}
+{{- $product := or .product "generic_debug" -}}
 
 architecture: {{ $architecture }}
+product: {{ $product }}
 actions:
 
   - action: recipe
@@ -46,10 +48,17 @@ actions:
 {{end}}
 
 {{ if eq $output_type "image" }}
+{{ if eq $product "generic_debug" }}
+  - action: run
+    chroot: false
+    description: Generate flashable image
+    script: scripts/genimage-dbg.sh {{ $image }}
+{{else}}
   - action: run
     chroot: false
     description: Generate flashable image
     script: scripts/genimage.sh {{ $image }}
+{{end}}
 {{end}}
 
   - action: run
