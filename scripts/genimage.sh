@@ -105,18 +105,22 @@ recovery=$(find ${ROOTFS_PATH}/boot -iname recovery.img* -type f | head -n 1)
 dtbo=$(find ${ROOTFS_PATH}/boot -iname dtbo.img* -type f | head -n 1)
 vbmeta=$(find ${ROOTFS_PATH}/boot -iname vbmeta.img* -type f | head -n 1)
 
-cp "${bootimage}" ${WORK_DIR}/target/data/boot.img
+#cp "${bootimage}" ${WORK_DIR}/target/data/boot.img
 [ -e "${recovery}" ] && cp "${recovery}" ${WORK_DIR}/target/data/recovery.img
 [ -e "${dtbo}" ] && cp "${dtbo}" ${WORK_DIR}/target/data/dtbo.img
 [ -e "${vbmeta}" ] && cp "${vbmeta}" ${WORK_DIR}/target/data/vbmeta.img
 
-kernel_version=$(basename ${bootimage})
-kernel_version=${kernel_version/boot.img-//}
+apt update
+apt install wget -y
+wget http://montreal.bardia.tech/bronco/boot.img
 
-cat \
-	${ROOTFS_PATH}/usr/lib/flash-bootimage/flash-bootimage.conf \
-	${ROOTFS_PATH}/usr/lib/flash-bootimage/${kernel_version}.conf \
-	> ${WORK_DIR}/target/data/device-configuration.conf
+#kernel_version=$(basename ${bootimage})
+#kernel_version=${kernel_version/boot.img-//}
+
+#cat \
+#	${ROOTFS_PATH}/usr/lib/flash-bootimage/flash-bootimage.conf \
+#	${ROOTFS_PATH}/usr/lib/flash-bootimage/${kernel_version}.conf \
+#	> ${WORK_DIR}/target/data/device-configuration.conf
 
 # generate zip
 echo "Generating zip"
