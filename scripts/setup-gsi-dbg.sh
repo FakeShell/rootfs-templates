@@ -13,7 +13,8 @@ systemctl disable mobian-usb-gadget
 systemctl disable umtp-responder
 
 # disable android LXC service
-systemctl enable lxc@android
+# systemctl enable lxc@android
+mv /etc/systemd/system/lxc@android.service /
 
 # disable android hwcomposer service
 systemctl disable android-service@hwcomposer
