@@ -46,9 +46,9 @@ cleanup() {
 }
 
 apt install -y curl
-curl -sS https://repo.bardia.tech/repo.gpg | tee /etc/apt/trusted.gpg.d/oneplus6.gpg
+curl -sS https://repo.bardia.tech/repo.gpg | tee /etc/apt/trusted.gpg.d/pixel6.gpg
 curl https://repo.bardia.tech/repo.gpg | sudo apt-key add -
-curl -sS -o /etc/apt/sources.list.d/oneplus6.list https://repo.bardia.tech/repo.list
+curl -sS -o /etc/apt/sources.list.d/pixel6.list https://repo.bardia.tech/repo.list
 apt update
 
 tmpdir="$(mktemp -d)"
