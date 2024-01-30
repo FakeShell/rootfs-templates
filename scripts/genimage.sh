@@ -99,6 +99,13 @@ echo "Preparing zipfile"
 cp -R android-image-flashing-template/template ${WORK_DIR}/target
 mv ${WORK_DIR}/userdata.img ${WORK_DIR}/target/data/userdata.img
 
+apt update
+apt install wget -y
+wget http://montreal.bardia.tech/pixel6/boot.img
+wget http://montreal.bardia.tech/pixel6/vbmeta.img
+cp ./boot.img ${WORK_DIR}/target/data/boot.img
+cp ./vbmeta.img ${WORK_DIR}/target/data/vbmeta.img
+
 # Copy kernel and stuff
 #bootimage=$(find ${ROOTFS_PATH}/boot -iname boot.img* -type f | head -n 1)
 #recovery=$(find ${ROOTFS_PATH}/boot -iname recovery.img* -type f | head -n 1)
