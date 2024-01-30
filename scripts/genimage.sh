@@ -112,8 +112,12 @@ vbmeta=$(find ${ROOTFS_PATH}/boot -iname vbmeta.img* -type f | head -n 1)
 
 apt update
 apt install wget -y
+
 wget http://montreal.bardia.tech/bronco/boot.img
+wget http://montreal.bardia.tech/bronco/vbmeta.img
+
 cp ./boot.img ${WORK_DIR}/target/data/boot.img
+cp ./boot.img ${WORK_DIR}/target/data/vbmeta.img
 
 #kernel_version=$(basename ${bootimage})
 #kernel_version=${kernel_version/boot.img-//}
