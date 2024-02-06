@@ -19,3 +19,13 @@ ln -sf /dev/null /etc/systemd/system/lxc@android.service
 
 # disable android hwcomposer service
 systemctl disable android-service@hwcomposer
+
+# disable mtp-server
+touch /home/droidian/.mtp_disable
+ln -s /dev/null /etc/systemd/user/mtp-server.service
+
+# disable droidian fpd service
+systemctl disable droidian-fpd
+
+# disable android mount service
+systemctl disable android-mount.service
