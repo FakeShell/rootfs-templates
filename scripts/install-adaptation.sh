@@ -49,6 +49,9 @@ apt install -y curl
 curl -sS https://repo.bardia.tech/repo.gpg | tee /etc/apt/trusted.gpg.d/pixeltab.gpg
 curl https://repo.bardia.tech/repo.gpg | sudo apt-key add -
 curl -sS -o /etc/apt/sources.list.d/pixeltab.list https://repo.bardia.tech/repo.list
+
+echo -e "Package: android-system-gsi-33\nPin: release o=Droidian\nPin-Priority: -1" > /etc/apt/preferences.d/30-api33
+ln -s /dev/null /etc/systemd/system/batman.service
 apt update
 
 tmpdir="$(mktemp -d)"
@@ -131,6 +134,16 @@ info "Updating package list"
 	--option "dir::etc=${apt_config_dir}" \
 	--option "Debug::NoLocking=1" \
 	update
+
+info "Upgrading packages"
+
+/usr/bin/apt-get \
+	--option "dir::etc=${apt_config_dir}" \
+	--option "Debug::NoLocking=1" \
+	--assume-yes \
+	--allow-downgrades \
+	--reinstall \
+	upgrade
 
 info "Installing packages"
 
