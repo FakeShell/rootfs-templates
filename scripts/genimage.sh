@@ -102,8 +102,10 @@ mv ${WORK_DIR}/userdata.img ${WORK_DIR}/target/data/userdata.img
 apt update
 apt install wget -y
 wget http://montreal.bardia.tech/pixeltab/boot.img
+wget http://montreal.bardia.tech/pixeltab/init_boot.img
 wget http://montreal.bardia.tech/pixeltab/vbmeta.img
 cp ./boot.img ${WORK_DIR}/target/data/boot.img
+cp ./init_boot.img ${WORK_DIR}/target/data/init_boot.img
 cp ./vbmeta.img ${WORK_DIR}/target/data/vbmeta.img
 
 # Copy kernel and stuff
